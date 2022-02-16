@@ -4,11 +4,7 @@ import request from 'supertest'
 import { app } from '../app'
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      signin(): Promise<string[]>
-    }
-  }
+    function signin(): Promise<string[]>;
 }
 
 let mongo: any
@@ -50,9 +46,7 @@ global.signin = async () => {
     })
     .expect(201)
 
-  return response.get('Set-Cookie')
-}
+  const cookie = response.get('Set-Cookie')
 
-declare global {
-  var signin: () => Promise<string[]>
+  return cookie
 }
