@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-depl
+  name: auth-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets
+      app: auth
   template:
     metadata:
       labels:
-        app: tickets
+        app: auth
     spec:
       containers:
-        - name: tickets
-          image: stanima/tickets
+        - name: auth
+          image: stanima/auth
           env:
             - name: JWT_KEY
               valueFrom:
@@ -25,12 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-srv
+  name: auth-srv
 spec:
   selector:
-    app: tickets
+    app: auth
   ports:
-    - name: tickets
+    - name: auth
       protocol: TCP
       port: 3000
       targetPort: 3000
